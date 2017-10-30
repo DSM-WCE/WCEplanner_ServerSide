@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const http = require('http');
+const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
@@ -13,7 +14,7 @@ const Users = require('./DB/Users');
 /* passport */
 app.use(passport.initialize());
 app.use(passport.session());
-const facebookLogin = require('./login/passport-facebook');
+const facebookLogin = require('./login/passport-facebook')(passport);
 
 /* middle ware */
 app.use(express.static(path.join(__dirname, 'front')));

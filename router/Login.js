@@ -9,7 +9,7 @@ module.exports = function(router) {
         scope : ['public_profile', 'email'] //facebook에 사용자의 public_profile과 email를 요청
     }));
 
-    //facebook이 검증을 마치고난 후 결과를 전송해주는 router
+    
     router.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect : '/landing'}), 
     function(req, res){
         res.redirect('/home');

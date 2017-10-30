@@ -5,13 +5,13 @@ const Users = require('../DB/Users');
 
 module.exports = function() {
     passport.use(new FacebookStrategy({
-        //clientID : '137429956896735',
-        //clientSecret : '8148693d7dd301242d3cf2b29bc8eab0',
-        //callbackURL : "http://localhost:3003/auth/facebook/callback",
+        clientID : '1829703597058739',
+        clientSecret : '4ab455868fa9216016ec3d7d27c075df',
+        callbackURL : "http://localhost:8080/auth/facebook/callback",
         passReqToCallback : true,
-    }, function(req, accessToken, refreshToken, profile, email, done){
-        console.log('Accesser : ' + profile);
-        console.log('Accesser email : ' + email);
+    }, function(req, accessToken, refreshToken, profile, done){
+        console.log(profile);
+        //console.log('Accesser email : ' + email);
         Users.findOne({id : profile.id}, function(err, user){
             console.log(profile.id);
             if(err) {
@@ -24,10 +24,10 @@ module.exports = function() {
             } else {
                 const newUsers = new Users({
                     id : profile.id,
-                    name : profile.name,
+                    displayname : profile.displayname,
                     gender : profile.gender,
                     profile_picture : profile.picture,
-                    email : email
+                    //email : email
                 });
                 newUsers.save(function(user){
                     return done(null, user);
