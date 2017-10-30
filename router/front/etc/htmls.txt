@@ -1,0 +1,6 @@
+input type file에서 특정 속성만 받기
+이미지: accept = "image/*"
+동영상: accept = "video/*"
+
+label에 for값을 주고 input id에 for와 동일한 값을 주면
+똑같이 적용됨. 단 input은 display:none시켜야 원래 값만 보일 것!

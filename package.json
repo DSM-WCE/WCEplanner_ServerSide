@@ -1,0 +1,31 @@
+{
+  "name": "wce",
+  "version": "1.0.0",
+  "description": "<h1>WCE_Planner(Web project) ServerSide</h1>",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DSM-WCE/WCEplanner_ServerSide.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DSM-WCE/WCEplanner_ServerSide/issues"
+  },
+  "homepage": "https://github.com/DSM-WCE/WCEplanner_ServerSide#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "http": "0.0.0",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.12.5",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}
