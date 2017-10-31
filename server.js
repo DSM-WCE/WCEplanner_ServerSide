@@ -17,7 +17,9 @@ app.use(passport.session());
 const facebookLogin = require('./login/passport-facebook')(passport);
 
 /* middle ware */
-app.use(express.static(path.join(__dirname, 'front')));
+// app.use(express.static(path.join(__dirname, 'front')));
+
+app.use('/', express.static(__dirname + '/public/front'));
 app.set('port', process.env.PORT || 8080);
 app.use(session({
     secret: 'flouieserver', 

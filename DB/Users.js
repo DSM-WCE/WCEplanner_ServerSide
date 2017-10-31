@@ -9,11 +9,10 @@ database.once('open', function(){
 mongoose.connect('mongodb://rudtj2316:germany74@ds139585.mlab.com:39585/wce_planner');
 
 const UsersSchema = new mongoose.Schema({
-    id : {type : String, required : true, unique : true}, //must be include and unique value
-    displayname : {type : String}, 
-    gender : {type : String},
-    profile_picture : {type : String}
-    //email : {type : String, required : true}
+    id : {type : String, required : true, unique : true}, 
+    displayName : {type : String}, 
+    email : {type : String, default:'No email'},
+    gender : {type : String}
 });
 
 module.exports = mongoose.model('Users', UsersSchema);
