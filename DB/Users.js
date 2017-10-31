@@ -10,9 +10,9 @@ mongoose.connect('mongodb://rudtj2316:germany74@ds139585.mlab.com:39585/wce_plan
 
 const UsersSchema = new mongoose.Schema({
     id : {type : String, required : true, unique : true}, //must be include and unique value
-    displayname : {type : String, required : true}, //must be include
+    displayname : {type : String}, 
     gender : {type : String},
-    profile_picture : {type : String, required : true},
+    profile_picture : {type : String}
     //email : {type : String, required : true}
 });
 
