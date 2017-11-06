@@ -10,6 +10,7 @@ const app = express();
 
 /* DB */
 const Users = require('./DB/Users');
+const Posts = require('./DB/Posts');
 
 /* passport */
 app.use(passport.initialize());
@@ -34,8 +35,11 @@ const routerLogin = require('./router/Login')(router);
 app.use('/', routerLogin);
 const routerHome = require('./router/Home')(router);
 app.use('/home', routerHome);
-const routerNewPlan = require('./router/NewPlan')(router);
-app.use('/', routerNewPlan);
+// const routerNewPlan = require('./router/NewPlan')(router);
+// app.use('/', routerNewPlan);
+app.get('/newplan', function(req, res) {
+    res.sendFile(__dirname+'/public/front/NewPlan.html');
+});
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){
