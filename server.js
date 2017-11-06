@@ -34,6 +34,8 @@ const routerLogin = require('./router/Login')(router);
 app.use('/', routerLogin);
 const routerHome = require('./router/Home')(router);
 app.use('/home', routerHome);
+const routerNewPlan = require('./router/NewPlan')(router);
+app.use('/', routerNewPlan);
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){
