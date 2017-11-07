@@ -10,7 +10,7 @@ const app = express();
 
 /* DB */
 const Users = require('./DB/Users');
-const Posts = require('./DB/Posts');
+const Plans = require('./DB/Plans');
 
 /* passport */
 app.use(passport.initialize());
