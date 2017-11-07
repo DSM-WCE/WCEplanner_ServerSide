@@ -48,6 +48,7 @@
             }
             
             #planInfo *{
+                text-decoration: none;
                 font-family: 'poiret one';
                 letter-spacing: 0.5px;
             }
@@ -270,10 +271,12 @@
     <body>
         <header>
             <div id = "planInfo">
+                <a href="/home">
                 <h1>
                     <img src = "../imgs/plan/planLogo.png" alt = "logo" id = "logo">
                     planner
                 </h1>
+                </a>
             </div>
             <div id = "planImgsCover">
                 <img src = "../imgs/plan/info.png" alt = "infoImg" id = "infoImg">
@@ -311,9 +314,7 @@
                 
                 <label for = "descriptionInput">설명</label>
                 <div id = "desInputCover">
-                    <textarea id = "descriptionInput" placeholder="설명을 입력해주세요.">
-                        
-                    </textarea>
+                    <textarea id = "descriptionInput" placeholder="설명을 입력해주세요."></textarea>
                     <div id = "postBtn">
                         <div id = "postBtnText">
                             POST

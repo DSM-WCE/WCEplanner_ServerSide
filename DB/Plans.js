@@ -9,4 +9,5 @@ const PlansSchema = new mongoose.Schema({
     backgroundImg: {data: Buffer, contentsType: String}
 });
 
+
 module.exports = mongoose.model('Plans', PlansSchema);
