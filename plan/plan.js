@@ -22,8 +22,7 @@ function loadPlan() {
 
 function search(id) {
     Plans.find({_id: id}, function(err, res) {
-        return re
-        s;
+        return res;
     })
 }
 //search plan function
