@@ -1,7 +1,8 @@
 //function for plan
 const Plans = require('../DB/Plans');
 
-function addPlan(req) {
+module.exports.addPlan = function (req) {
+    console.log('add');
     let newPlan = new Plans ({
         title: req.title,
         description: req.description,
@@ -12,17 +13,16 @@ function addPlan(req) {
 }
 //save function
 
-function loadPlan() {
-    Plans.find({}, function(err, res) {
-        //여기에 _id의 index로 res를 배열로 만들어서 보내기
-        return res;
+module.exports.loadPlan = function () {
+    Plans.find({},function(err, res) {
+        return res.title;
     });
 }
-//loadfunction
+//loadfunction for main
 
-function search(id) {
-    Plans.find({_id: id}, function(err, res) {
+module.exports.search = function (title) {
+    Plans.find({title: title}, function(err, res) {
         return res;
     })
 }
-//search plan function
+//search plan function for plan page

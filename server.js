@@ -7,6 +7,7 @@ const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const app = express();
+const plan = require('./plan/plan');
 
 /* DB */
 const Users = require('./DB/Users');
