@@ -8,6 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const app = express();
 const plan = require('./plan/plan');
+const bodyParser = require('body-parser');
 
 /* DB */
 const Users = require('./DB/Users');
@@ -41,6 +42,10 @@ app.use('/home', routerHome);
 app.get('/newplan', function(req, res) {
     res.sendFile(__dirname+'/public/front/NewPlan.html');
 });
+app.use(bodyParser.urlencoded({extended: true}));
+app.post('/newplan', function(req, res) {
+    plan.addPlan(req.body);
+})
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){

@@ -395,6 +395,29 @@
         </section>
         
         <script type = "text/javascript">
+            //post request
+            var imgdata;
+            function post(path, params, method) {
+                method = method || "post";
+
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+                //set form
+
+                for(var key in params) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", params[key]);
+             
+                    form.appendChild(hiddenField);
+                }
+             
+                document.body.appendChild(form);
+                form.submit();
+            }
+
             //test
             let test = document.getElementsByClassName('descriptionBtns')[0];
             let heart = document.getElementById('heartImg');
@@ -452,6 +475,7 @@
             
             //추가
             function makePost(){
+                let plantitle = document.getElementById('titleInput').value;//title
                 let blackCover = document.getElementById('blackCover'); //이미지
                 let tInput = document.querySelector('textarea').value;
                 
@@ -488,6 +512,7 @@
                         postBoxText.style.textDecoration = defaultStatus;
                     }
                 }
+                post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImgdata': blackCover, 'backgroundImgcontentsType': 'image/jpg'});
             }
         </script>
     </body>
