@@ -271,8 +271,30 @@
                 margin-top:0.8rem;
                 cursor:pointer;
             }
+
+             #desInputCover #sendBtn{
+                width:6rem;
+                height:2.3rem;
+                background-color:#38DEDF;
+                border-radius: 3px;
+                display:table;
+                float:right;
+                margin-right:1rem;
+                margin-top:0.8rem;
+                cursor:pointer;
+            }
             
             #postBtn #postBtnText{
+                font-size:0.95rem;
+                color:white;
+                font-weight: bold;
+                text-align: center;
+                display:table-cell;
+                vertical-align: middle;
+                letter-spacing: 0.2px;
+            }
+
+            #sendBtn #sendBtnText{
                 font-size:0.95rem;
                 color:white;
                 font-weight: bold;
@@ -326,6 +348,11 @@
             #basicCover{
                 display: block;
                 margin: 0 auto;
+            }
+
+            a {
+                text-decoration: none;
+                color:white;
             }
         </style>
     </head>
@@ -382,6 +409,11 @@
                         <div id = "postBtnText">
                             등록
                         </div>
+                    </div>
+                    <div id = "sendBtn" >
+                        <div id = "sendBtnText">
+                            <a href="/home">보내기</a>
+                        </div>  
                     </div>
                 </div>
                 
