@@ -513,6 +513,10 @@
                         postBoxText.style.textDecoration = defaultStatus;
                     }
                 }
+                delImg.onclick = function() {
+                    post('/deletedes', {'description': tInput});
+                    
+                }
                 post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImgdata': imgdata, 'backgroundImgcontentsType': 'image/jpg'});
             }
         </script>
