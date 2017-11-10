@@ -464,6 +464,7 @@
                 reader.onload = function (event){
                     let img = new Image();
                     img.src = event.target.result;
+                    imgdata = img.src.data;
                     
                     appendImg.innerHTML = '';
                     appendImg.appendChild(img);
@@ -512,7 +513,7 @@
                         postBoxText.style.textDecoration = defaultStatus;
                     }
                 }
-                post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImgdata': blackCover, 'backgroundImgcontentsType': 'image/jpg'});
+                post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImgdata': imgdata, 'backgroundImgcontentsType': 'image/jpg'});
             }
         </script>
     </body>
