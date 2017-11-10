@@ -9,8 +9,8 @@ module.exports.addPlan = function (req) {
     let newPlan = new Plans ({
         title: req.title,
         description: req.description,
-        date: Date.now,
-        backgroundImg: {data: req.backgroundImgdata, contentsType: req.backgroundImgcontentsType}//이미지를 보낼 방법을 생각 해야함 
+        date: Date.now(),
+        //backgroundImg: {data: req.backgroundImgdata, contentsType: req.backgroundImgcontentsType}//이미지를 보낼 방법을 생각 해야함 
     });
     console.log('add(after)');
     newPlan.save();
@@ -19,7 +19,8 @@ module.exports.addPlan = function (req) {
 
 module.exports.loadPlan = function () {
     Plans.find({},function(err, res) {
-        return res.title;
+        console.log(res);
+        return res;
     });
 }
 //loadfunction for main
@@ -30,3 +31,7 @@ module.exports.search = function (title) {
     })
 }
 //search plan function for plan page
+
+module.exports.deletedes = function(req) {
+    Plans.findOneAndRemove({'description': req.description}, function(err, res) {});
+}

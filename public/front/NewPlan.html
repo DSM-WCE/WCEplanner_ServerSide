@@ -6,6 +6,18 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+        <script>
+            $.ajax({
+                url: "/home",
+                complete: function(data) {
+                    console.log(data);
+                }
+            });
+        </script>
         
         <style media = "screen" type="text/css">
             body{
@@ -271,8 +283,30 @@
                 margin-top:0.8rem;
                 cursor:pointer;
             }
+
+             #desInputCover #sendBtn{
+                width:6rem;
+                height:2.3rem;
+                background-color:#38DEDF;
+                border-radius: 3px;
+                display:table;
+                float:right;
+                margin-right:1rem;
+                margin-top:0.8rem;
+                cursor:pointer;
+            }
             
             #postBtn #postBtnText{
+                font-size:0.95rem;
+                color:white;
+                font-weight: bold;
+                text-align: center;
+                display:table-cell;
+                vertical-align: middle;
+                letter-spacing: 0.2px;
+            }
+
+            #sendBtn #sendBtnText{
                 font-size:0.95rem;
                 color:white;
                 font-weight: bold;
@@ -326,6 +360,11 @@
             #basicCover{
                 display: block;
                 margin: 0 auto;
+            }
+
+            a {
+                text-decoration: none;
+                color:white;
             }
         </style>
     </head>
@@ -382,6 +421,11 @@
                         <div id = "postBtnText">
                             등록
                         </div>
+                    </div>
+                    <div id = "sendBtn" >
+                        <div id = "sendBtnText">
+                            <a href="/home">보내기</a>
+                        </div>  
                     </div>
                 </div>
                 
@@ -515,7 +559,6 @@
                 }
                 delImg.onclick = function() {
                     post('/deletedes', {'description': tInput});
-                    
                 }
                 post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImgdata': imgdata, 'backgroundImgcontentsType': 'image/jpg'});
             }
