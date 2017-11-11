@@ -428,8 +428,9 @@
         
         <script type = "text/javascript">
             //post request
-            var imgdata;
+            var image;
             function post(path, params, method) {
+                console.log('a');
                 method = method || "post";
 
                 var form = document.createElement("form");
@@ -496,7 +497,7 @@
                 reader.onload = function (event){
                     let img = new Image();
                     img.src = event.target.result;
-                    imgdata = img.src.data;
+                    image = event.target.result;
                     
                     appendImg.innerHTML = '';
                     appendImg.appendChild(img);
@@ -548,7 +549,7 @@
                 delImg.onclick = function() {
                     post('/deletedes', {'description': tInput});
                 }
-                post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImgdata': imgdata, 'backgroundImgcontentsType': 'image/jpg'});
+                post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImg': image});
             }
         </script>
     </body>

@@ -4,13 +4,12 @@ const Plans = require('../DB/Plans');
 module.exports.addPlan = function (req) {
     console.log(req.title);
     console.log(req.description);
-    console.log(req.backgroundImgdata);
-    console.log(req.backgroundImgcontentsType);
+    console.log(req.backgroundImg);
     let newPlan = new Plans ({
         title: req.title,
         description: req.description,
         date: Date.now(),
-        //backgroundImg: {data: req.backgroundImgdata, contentsType: req.backgroundImgcontentsType}//이미지를 보낼 방법을 생각 해야함 
+        backgroundImg: req.backgroundImg
     });
     console.log('add(after)');
     newPlan.save();

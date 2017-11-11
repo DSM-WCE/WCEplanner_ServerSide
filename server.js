@@ -30,6 +30,8 @@ app.use(session({
     saveUninitialized: false 
 }));     
 app.set('json spaces', 40);
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 
 /* router */
 app.get('/home', function(req, res) {
