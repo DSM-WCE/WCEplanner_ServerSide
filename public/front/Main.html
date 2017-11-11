@@ -7,6 +7,18 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+        <script>
+            $.ajax({
+                url: "127.0.0.1:8080/home",
+                complete: function(data) {
+                    alert(data);
+                }
+            });
+        </script>
         
         <!-- tinymce -->
         <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
@@ -884,6 +896,7 @@
         
         <script type = "text/javascript">
             //클릭 이미지 테스트
+            /*post('/home');*/
             let heart = document.getElementById('heartImg');
             let lock = document.getElementById('lockImg');
             

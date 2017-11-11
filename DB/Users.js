@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const MongoClient = require('mongodb').MongoClient;
+mongoose.Promise = global.Promise;
 
 const database = mongoose.connection;
 database.on('error', console.error);

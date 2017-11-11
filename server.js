@@ -29,8 +29,12 @@ app.use(session({
     resave: true, 
     saveUninitialized: false 
 }));     
+app.set('json spaces', 40);
 
 /* router */
+app.get('/home', function(req, res) {
+    plan.loadPlan(res);
+});
 const routerLanding = require('./router/Landing')(router);
 app.use('/', routerLanding);
 const routerLogin = require('./router/Login')(router);

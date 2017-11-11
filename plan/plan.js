@@ -17,10 +17,9 @@ module.exports.addPlan = function (req) {
 }
 //save function
 
-module.exports.loadPlan = function () {
-    Plans.find({},function(err, res) {
-        console.log(res);
-        return res;
+module.exports.loadPlan = function (res) {
+    Plans.find({}).exec(function(err, data) {
+        return res.json(data);
     });
 }
 //loadfunction for main
