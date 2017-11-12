@@ -2,21 +2,23 @@
 const Plans = require('../DB/Plans');
 
 module.exports.addPlan = function (req) {
-    console.log(req.title);
-    console.log(req.description);
+    console.log(req.body.title);
+    console.log(req.body.description);
+    console.log(req.session.passport.user);
     let newPlan = new Plans ({
-        title: req.title,
-        description: req.description,
+        name: req.session.passport.user,
+        title: req.body.title,
+        description: req.body.description,
         date: Date.now(),
-        backgroundImg: req.backgroundImg
+        backgroundImg: req.body.backgroundImg
     });
     console.log('add(after)');
     newPlan.save();
 }
 //save function
 
-module.exports.loadPlan = function (res, path) {
-    Plans.find({}).exec(function(err, data) {
+module.exports.loadPlan = function (res, path, req) {
+    Plans.find({name: req.session.passport.user}).exec(function(err, data) {
         return res.render(path, {data: data});
     });
 }

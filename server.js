@@ -49,7 +49,7 @@ app.get('/newplan', function(req, res) {
 });
 app.use(bodyParser.urlencoded({extended: true}));
 app.post('/newplan', function(req, res) {
-    plan.addPlan(req.body);
+    plan.addPlan(req);
 });
 app.post('/deletedes', function(req, res) {
     plan.deletedes(req.body);
