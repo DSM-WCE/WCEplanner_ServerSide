@@ -32,11 +32,10 @@ app.use(session({
 app.set('json spaces', 40);
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
+app.set('view engine','ejs');
+app.set('views','./views');
 
 /* router */
-app.get('/home', function(req, res) {
-    plan.loadPlan(res);
-});
 const routerLanding = require('./router/Landing')(router);
 app.use('/', routerLanding);
 const routerLogin = require('./router/Login')(router);

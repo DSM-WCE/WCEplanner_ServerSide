@@ -7,18 +7,6 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-        <script
-        src="https://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous"></script>
-        <script>
-            $.ajax({
-                url: "127.0.0.1:8080/home",
-                complete: function(data) {
-                    alert(data);
-                }
-            });
-        </script>
         
         <!-- tinymce -->
         <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
@@ -370,6 +358,7 @@
             }
             
             section .plans{
+                margin-left:2rem;
                 height:15.5rem;
                 text-align: center;
             }
@@ -389,7 +378,6 @@
             
             /* 색 예시 */
             section .plans .realPlans:nth-of-type(1){
-                margin-left:2rem;
                 background-color:#fedb3f;
             }
             
@@ -405,6 +393,7 @@
                 background-color:#33deb1;
             }
             /*-------*/
+            
             
             section .realPlans .planTitles{
                 font-size:1.1rem;
@@ -884,6 +873,26 @@
                                 </div>
                             </div>
                         </div>
+                        <% for(var i = 0; i < data.length; i++){ %>
+                            <div class = "realPlans" style = "background-image: url(<%= data[i].backgroundImg%>); background-size: 15rem 16.2rem; background-color: pink">
+                                <div class = "planTitles">
+                                    <%= data[i].title %>
+                                </div>
+                                
+                                <!-- 이미지 3개 버튼들 -->
+                                <div class = "planImgCovers">
+                                    <div class = "planBtns" id = "planLike">
+                                        <img src = "imgs/main/blackHeart.png" alt = "planLike" id = "planLikeImg">
+                                    </div>
+                                    <div class = "planBtns" id = "planCheck">
+                                        <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
+                                    </div>
+                                    <div class = "planBtns" id = "planSee">
+                                        <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
                 <!-- 여기까지 -->

@@ -4,7 +4,6 @@ const Plans = require('../DB/Plans');
 module.exports.addPlan = function (req) {
     console.log(req.title);
     console.log(req.description);
-    console.log(req.backgroundImg);
     let newPlan = new Plans ({
         title: req.title,
         description: req.description,
@@ -16,9 +15,9 @@ module.exports.addPlan = function (req) {
 }
 //save function
 
-module.exports.loadPlan = function (res) {
+module.exports.loadPlan = function (res, path) {
     Plans.find({}).exec(function(err, data) {
-        return res.json(data);
+        return res.render(path, {data: data});
     });
 }
 //loadfunction for main
