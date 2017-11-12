@@ -54,6 +54,9 @@ app.post('/newplan', function(req, res) {
 app.post('/deletedes', function(req, res) {
     plan.deletedes(req.body);
 });
+app.post('/editplan', function(req, res) {
+    plan.editplan(req);
+})
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){

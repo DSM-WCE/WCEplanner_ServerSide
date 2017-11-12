@@ -537,6 +537,7 @@
                 
                 //edit누르면 수정
                 editImg.onclick = (e) => {
+                    var before = postBoxText.innerText;
                     postBoxText.setAttribute('contentEditable', true);
                     postBoxText.style.textDecoration = "underline";
                     checkImg.style.display = "inline-block";
@@ -544,11 +545,17 @@
                     checkImg.onclick = () => {
                         postBoxText.setAttribute('contentEditable', false);
                         postBoxText.style.textDecoration = defaultStatus;
+                        var after = postBoxText.innerText;
+                        console.log(after);
+                        console.log(thisplan);
+                        post('/editplan', {'title': thisplan, 'before': before,'description': after});
                     }
                 }
                 delImg.onclick = function() {
-                    post('/deletedes', {'description': tInput});
+                    post('/deletedes', {'description': postBoxText.innerText});
+                    postBox.parentElement.removeChild(postBox);
                 }
+                var thisplan = plantitle;
                 post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImg': image});
             }
         </script>

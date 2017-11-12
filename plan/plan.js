@@ -34,3 +34,11 @@ module.exports.search = function (title) {
 module.exports.deletedes = function(req) {
     Plans.findOneAndRemove({'description': req.description}, function(err, res) {});
 }
+//delete plan
+
+module.exports.editplan = function(req) {
+    console.log(req.body.title);
+    Plans.find({ name: req.session.passport.user}).find({title: req.body.title}).findOneAndUpdate({description: req.body.before}, { description: req.body.description }, {new: true},function(err, data) {
+        console.log(data);
+    })
+}
