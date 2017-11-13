@@ -552,7 +552,7 @@
                     }
                 }
                 delImg.onclick = function() {
-                    post('/deletedes', {'description': postBoxText.innerText});
+                    post('/deletedes', {'title': thisplan,'description': postBoxText.innerText});
                     postBox.parentElement.removeChild(postBox);
                 }
                 var thisplan = plantitle;

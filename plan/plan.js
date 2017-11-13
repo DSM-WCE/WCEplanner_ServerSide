@@ -32,7 +32,9 @@ module.exports.search = function (title) {
 //search plan function for plan page
 
 module.exports.deletedes = function(req) {
-    Plans.findOneAndRemove({'description': req.description}, function(err, res) {});
+    Plans.find({name: req.session.passport.user}).find({title: req.body.title}).findOneAndRemove({'description': req.body.description}, function(err, res) {
+        console.log(res);
+    });
 }
 //delete plan
 

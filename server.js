@@ -42,21 +42,13 @@ const routerLogin = require('./router/Login')(router);
 app.use('/', routerLogin);
 const routerHome = require('./router/Home')(router);
 app.use('/home', routerHome);
-// const routerNewPlan = require('./router/NewPlan')(router);
-// app.use('/', routerNewPlan);
-app.get('/newplan', function(req, res) {
-    res.sendFile(__dirname+'/public/front/NewPlan.html');
-});
+const routerNewPlan = require('./router/NewPlan')(router);
+app.use('/', routerNewPlan);
 app.use(bodyParser.urlencoded({extended: true}));
-app.post('/newplan', function(req, res) {
-    plan.addPlan(req);
-});
-app.post('/deletedes', function(req, res) {
-    plan.deletedes(req.body);
-});
-app.post('/editplan', function(req, res) {
-    plan.editplan(req);
-})
+const routerDelete = require('./router/DeleteDes')(router);
+app.use('/', routerDelete);
+const routerEditPlan = require('./router/EditPlan')(router);
+app.use('/', routerEditPlan);
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){
