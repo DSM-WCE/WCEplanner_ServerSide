@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 const database = mongoose.connection;
 database.on('error', console.error);
 database.once('open', function(){
-    console.log('Connected DataBase');
+    console.log('Connected User-DataBase');
 });
 mongoose.connect('mongodb://rudtj2316:germany74@ds139585.mlab.com:39585/wce_planner');
 

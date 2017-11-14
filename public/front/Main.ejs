@@ -594,20 +594,19 @@
                 margin-right:1rem;
                 margin-top:0.5rem;
                 cursor:pointer;
-            }
-            
-            #inquiryOkayBtn #inquiryOkayText{
                 color:white;
                 font-size:0.85rem;
                 font-weight: 800;
-                text-align: center;
-                display:table-cell;
-                vertical-align: middle;
                 letter-spacing: 0.5px;
+                border: none;
             }
             
             
             /* tinymce css 수정 */
+            #description_ifr{
+                height:220px !important;
+            }
+
             #mceu_11{
                 width:47.8rem !important;
                 margin-left:1rem;
@@ -678,41 +677,38 @@
         </div>
         
         <!-- 문의하기 -->
-        <div id = "inquiryForm">
-            <div class = "modalFormHeaders" id = "inquiryHeader">
-                <h1>문의하기</h1>
-                <img src = "imgs/main/exit.png" class = "exitImg" alt = "exitImg">
-            </div>
-            
-            <label>문의사항</label>
-            <input type = "text" id = "inquiryTitle" placeholder="제목을 입력해주세요.">
-            
-            <label>버그 내용</label>
-            <textarea>
-                <!-- tinymce textarea -->
-            </textarea>
-            
-            <div id = "inquiryBtnCover">
-                <label class = "inquiryBtns" for = "imgUpload">
-                    이미지 첨부
-                    <input type = "file" accept="image/*" id = "imgUpload">
-                </label>
-                <label class = "inquiryBtns">
-                    동영상 첨부
-                    <input type = "file" accept="video/*" id = "videoUpload">
-                </label>
-                <label class = "inquiryBtns">
-                    파일 첨부
-                    <input type = "file" id = "fileUpload">
-                </label>
-            </div>
-            
-            <div id = "inquiryOkayBtn">
-                <div id = "inquiryOkayText">
-                    접수하기
+        <form action="/admin" method="post" enctype="multipart/form-data">
+            <div id = "inquiryForm">
+                <div class = "modalFormHeaders" id = "inquiryHeader">
+                    <h1>문의하기</h1>
+                    <img src = "imgs/main/exit.png" class = "exitImg" alt = "exitImg">
                 </div>
+                
+                <label>문의사항</label>
+                <input type = "text" id = "inquiryTitle" placeholder="제목을 입력해주세요." name="title">
+                
+                <label>버그 내용</label>
+                <textarea name="description">
+                    <!-- tinymce textarea -->
+                </textarea>
+                
+                <div id = "inquiryBtnCover">
+                    <label class = "inquiryBtns" for = "imgUpload">
+                        이미지 첨부
+                        <input type = "file" accept="image/*" id = "imgUpload" name="upFile">
+                    </label>
+                    <label class = "inquiryBtns">
+                        동영상 첨부
+                        <input type = "file" accept="video/*" id = "videoUpload" name="upFile">
+                    </label>
+                    <label class = "inquiryBtns">
+                        파일 첨부
+                        <input type = "file" id = "fileUpload" name="upFile">
+                    </label>
+                </div>
+                <input type="submit" id="inquiryOkayBtn" value="접수하기">
             </div>
-        </div>
+        </form>
         
         <!-- 여기까지 -->
         
@@ -732,6 +728,15 @@
                 <img src = "imgs/main/ic_log_out_gray.png" alt = "logout" id = "logoutImg">
             </div>
         </header>
+        <script type = "text/javascript">
+            let img = document.getElementById('logoutImg');
+            img.onclick = () => {
+                let confirmLogout = confirm("정말 로그아웃 하시겠습니까?");
+                if(confirmLogout == true) {
+                    location.replace("/logout");
+                } 
+            }
+        </script>
         
         <section>
             <aside>
@@ -791,7 +796,7 @@
                         </div>
                         <div id = "mainText">
                             <!-- 깃허브에 사용 방법 추가하기 -->
-                            <a href = "" target = "_blank">ABOUT?</a>
+                            <a href = "" target = "_self">ABOUT?</a>
                         </div>
                     </div>
                 </div>
@@ -801,78 +806,6 @@
                     <div class = "planDates"></div>
                     <div class = "plans">
                         <!-- 4개가 최대가 되도록 -->
-                        <div class = "realPlans">
-                            <div class = "planTitles">
-                                12시에 장 보러 가기!!!
-                            </div>
-                            
-                            <!-- 이미지 3개 버튼들 -->
-                            <div class = "planImgCovers">
-                                <div class = "planBtns" id = "planLike">
-                                    <img src = "imgs/main/blackHeart.png" alt = "planLike" id = "planLikeImg">
-                                </div>
-                                <div class = "planBtns" id = "planCheck">
-                                    <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
-                                </div>
-                                <div class = "planBtns" id = "planSee">
-                                    <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "realPlans">
-                            <div class = "planTitles">
-                                8:30분에 여친이랑 데이트
-                            </div>
-                            
-                            <!-- 이미지 3개 버튼들 -->
-                            <div class = "planImgCovers">
-                                <div class = "planBtns" id = "planLike">
-                                    <img src = "imgs/main/blackHeart.png" alt = "planLike" id = "planLikeImg">
-                                </div>
-                                <div class = "planBtns" id = "planCheck">
-                                    <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
-                                </div>
-                                <div class = "planBtns" id = "planSee">
-                                    <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "realPlans">
-                            <div class = "planTitles">
-                                오늘의 중요한 계획들
-                            </div>
-                            
-                            <!-- 이미지 3개 버튼들 -->
-                            <div class = "planImgCovers">
-                                <div class = "planBtns" id = "planLike">
-                                    <img src = "imgs/main/blackHeart.png" alt = "planLike" id = "planLikeImg">
-                                </div>
-                                <div class = "planBtns" id = "planCheck">
-                                    <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
-                                </div>
-                                <div class = "planBtns" id = "planSee">
-                                    <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "realPlans">
-                            <div class = "planTitles">
-                                학원 시간 변경됨
-                            </div>
-                            
-                            <!-- 이미지 3개 버튼들 -->
-                            <div class = "planImgCovers">
-                                <div class = "planBtns" id = "planLike">
-                                    <img src = "imgs/main/blackHeart.png" alt = "planLike" id = "planLikeImg">
-                                </div>
-                                <div class = "planBtns" id = "planCheck">
-                                    <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
-                                </div>
-                                <div class = "planBtns" id = "planSee">
-                                    <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
-                                </div>
-                            </div>
-                        </div>
                         <% for(var i = 0; i < data.length; i++){ %>
                             <div class = "realPlans" style = "background-image: url(<%= data[i].backgroundImg%>); background-size: 15rem 16.2rem; background-color: pink">
                                 <div class = "planTitles">
@@ -887,7 +820,7 @@
                                     <div class = "planBtns" id = "planCheck">
                                         <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
                                     </div>
-                                    <div class = "planBtns" id = "planSee">
+                                    <div class = "planBtns" id = "planSee" onclick="goplan('<%= data[i]._id%>')">
                                         <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
                                     </div>
                                 </div>
@@ -904,6 +837,27 @@
         </footer>
         
         <script type = "text/javascript">
+        function post(path, params, method) {
+                console.log('a');
+                method = method || "post";
+
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+                //set form
+
+                for(var key in params) {
+                    var hiddenField = document.createElement("input");
+                    hiddenField.setAttribute("type", "hidden");
+                    hiddenField.setAttribute("name", key);
+                    hiddenField.setAttribute("value", params[key]);
+             
+                    form.appendChild(hiddenField);
+                }
+             
+                document.body.appendChild(form);
+                form.submit();
+            }
             //클릭 이미지 테스트
             /*post('/home');*/
             let heart = document.getElementById('heartImg');
@@ -970,6 +924,10 @@
             exitForm(exitBtn, inquiryForm);
             exitForm(exitBtn, stopForm);
 
+            function goplan(id){
+                //let plantitle = document.getElementById('planTitle').innerText;
+                post('/plans', {'id': id});
+            }
         </script>
     </body>
 </html>

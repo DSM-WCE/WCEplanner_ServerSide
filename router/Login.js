@@ -14,6 +14,13 @@ module.exports = function(router) {
     function(req, res){
         res.redirect('/home');
     });
+
+    router.get('/logout', function(req, res){
+        req.logout();
+        console.log(req.session.passport.user + '님 로그아웃');
+        res.redirect('/');
+    });
+    
     
     return router;
 }

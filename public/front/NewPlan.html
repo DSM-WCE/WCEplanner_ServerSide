@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <script src="js/iro.js"></script>
         
         <style media = "screen" type="text/css">
             body{
@@ -121,7 +122,6 @@
             article #basicColor{
                 width:100%;
                 height:100%;
-                background-color:#457ff5;
                 overflow-y:auto;
             }
             
@@ -421,6 +421,9 @@
                     <img src = "../imgs/plan/backPic.png" alt = "backPic" id = "backPicImg">
                     <input type = "file" style = "display:none"; id = "backPic" accept="image/*">
                 </label>
+                <label style = "display:inline-block;" for = "backColor">배경 색상 선택:
+                    <div id="backColor"></div>
+                </label>
                 
                 <!--<label for = "backColor"></label>-->
             </aside>
@@ -506,6 +509,18 @@
                 reader.readAsDataURL(file);
                 return false;
             };
+            
+            /* 색상 바꾸기 */
+            let colorPicker = new iro.ColorPicker("#backColor", {
+                width: 320,
+                height: 320,
+                color: "#457ff5",
+                css: {
+                    "#basicColor": {
+                      "background-color": "$color"
+                    }
+                  }
+            });
             
             //추가
             function makePost(){

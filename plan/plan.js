@@ -24,10 +24,11 @@ module.exports.loadPlan = function (res, path, req) {
 }
 //loadfunction for main
 
-module.exports.search = function (title) {
-    Plans.find({title: title}, function(err, res) {
-        return res;
-    })
+module.exports.search = function (req, path ,res) {
+    Plans.find({name: req.session.passport.user}).findOne({_id: req.body.id}).exec(function(err,data) {
+        console.log(data);
+        return res.render(path, {data: data});
+    });
 }
 //search plan function for plan page
 
