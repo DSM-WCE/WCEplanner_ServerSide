@@ -45,8 +45,6 @@ const routerHome = require('./router/Home')(router);
 app.use('/home', routerHome);
 const routerAdmin = require('./router/Admin')(router);
 app.use('/', routerAdmin);
-
-/* 모듈화 필요함 */
 const routerNewPlan = require('./router/NewPlan')(router);
 app.use('/', routerNewPlan);
 app.use(bodyParser.urlencoded({extended: true}));
@@ -56,6 +54,8 @@ const routerEditPlan = require('./router/EditPlan')(router);
 app.use('/', routerEditPlan);
 const routerPlans = require('./router/Plans')(router);
 app.use('/', routerPlans);
+const routerMypage = require('./router/Mypage')(router);
+app.use('/', routerMypage);
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){

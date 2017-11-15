@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang = "ko">
+    <head>
+        <title>My-Page</title>
+        <meta charset = "utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="WCE-Members">
+        <meta name="title" content="WCE-Planner">
+        <meta name="description" content="DSM 웹/앱 동아리 WCE가 만든 웹 플래너입니다.">
+        <meta name="keywords" content="계획, 일정, 사람, 완료, 매일">
+        <meta name="Other Agent" content="WCE">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="WCE-Planner">
+        <meta property="og:title" content="WCE-Planner">
+        <meta property="og:description" content="DSM 웹/앱 동아리 WCE가 만든 웹 플래너입니다. ">
+        <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        
+        <style media = "screen" type="text/css">
+            html{
+                width:100%;
+                height:100%;
+                margin:0;
+                padding:0;
+                overflow:hidden;
+            }
+            
+            *{
+                margin:0;
+                padding:0;
+                border:0;
+                outline:none;
+                box-sizing:border-box;
+                font-family: 'nanumsquare', sans-serif;
+            }
+            
+            header{
+                width:100%;
+                height:4rem;
+                border-bottom:1px solid #c6c6c6;
+                display:flex;
+                align-items: center;
+            }
+            
+            header *{
+                cursor:pointer;
+            }
+            
+            header #logoImg{
+                width:2rem;
+                margin-left:3rem;
+            }
+            
+            header #logoText{
+                font-family: 'poiret one';
+                font-weight: bold;
+                color:#292929;;
+                font-size:1.3rem;
+                letter-spacing: 0.5px;
+                padding-left:0.3rem;
+            }
+            
+            header a{
+                text-decoration: none;
+                color:#292929;
+                position:absolute;
+                right:4rem;
+                font-size:0.9rem;
+                letter-spacing: 0.3px;
+                transition:0.4s;
+            }
+            
+            header a:hover{
+                letter-spacing: 1.5px;
+            }
+            
+            section #mypageImg{
+                display:block;
+                /*border:1px solid;*/
+                margin:0 auto;
+                margin-top:1.5rem;
+            }
+            
+            section #coverImgText{
+                /*background-color:red;*/
+                height:5rem;
+                margin-top:-6rem;
+                position:relative;
+                background-color:white;
+            }
+            
+            section #profileCover{
+                /*border:2px solid;*/
+                position:relative;
+                margin-top:-2.5rem;
+                text-align: center;
+            }
+            
+            section #profileImg{
+                border:1px solid #e6e6e6;
+                box-shadow: 0 0 4px darkgray;
+                width:10rem;
+                border-radius: 100%;
+                display:inline-block;
+                margin-left:4.5rem;
+            }
+            
+            section #changeProfileImg{
+                width:1.6rem;
+                cursor: pointer;
+            }
+            
+            section .userInfos{
+                /*border:1px solid;*/
+                width:40rem;
+                height:3rem;
+                margin:0 auto;
+                position:relative;
+                left:1.25rem;
+                
+                text-align: center;
+                font-size:0;
+            }
+            
+            section .userInfos .infos{
+                display:inline-block;
+                vertical-align: top;
+                width:50%;
+                height:100%;
+                /*border-right:1px solid;
+                border-left:1px solid;*/
+                
+                font-size:1rem;
+                letter-spacing: 0.2px;
+                padding-top:0.85rem;
+                text-align: right;
+                padding-right:1rem;
+            }
+            
+            section .userInfos span{
+                text-align: left !important;
+                padding-left:1rem;
+            }
+            
+            section ul li{
+                list-style: none;
+                width:40%;
+                height:2.6rem;
+                margin:0 auto;
+                box-shadow: 0 0 3px darkgray;
+                margin-top:5px;
+                position:relative;
+                left:2rem;
+                
+                text-align: center;
+                color:#404040;
+                padding-top:0.8rem;
+            }
+            
+            section ul li img{
+                width:24px;
+                position:absolute;
+                right:0;
+                margin-right:1rem;
+                margin-top:-3px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src = "imgs/mypage/logo.png" alt = "logo" id = "logoImg">
+            <span id = "logoText">
+                planner
+            </span>
+            <a href = "">로그아웃</a>
+        </header>
+        <section>
+            <img src = "http://www.nescafeshop.co.kr/shop/data/skin/mera_ws/img/2015img/mypage_title.png" alt = "mypage" id = "mypageImg">
+            <div id = "coverImgText">
+                <!-- 이미지 텍스트 없애기용-->
+            </div>
+            <div id = "profileCover">
+                <img src = "imgs/mypage/ex.gif" alt = "profile" id = "profileImg">
+                <label for = "change">
+                    <img src = "imgs/mypage/changeProfile.png" alt = "changeProfile" id = "changeProfileImg">
+                </label>
+                <input type = "file" accept="image/*" style = "display:none" id = "change">
+            </div>
+            
+            <div class = "userInfos" style = "margin-top:2rem;">
+                <div class = "infos">
+                    닉네임 : 
+                </div>
+                <span class = "infos" id = "nickname">
+                    Mr.Hamtory
+                </span>
+            </div>
+            <div class = "userInfos">
+                <div class = "infos">
+                    한 줄 소개 : 
+                </div>
+                <span class = "infos" id = "introduction">
+                    안녕하세요!률
+                </span>
+            </div>
+            
+            <!-- 임시 -->
+            <ul>
+                <li>이마트 가기<img src = "imgs/mypage/testCheck.png"></li>
+                <li>정보처리기능사 필기 합격<img src = "imgs/mypage/testCheck.png"></li>
+                <li>친구랑 5시에 놀기<img src = "imgs/mypage/testCheck.png"></li>
+                <li>이어폰 바꾸기<img src = "imgs/mypage/testCheck.png"></li>
+                <li>구몬 선생님한테 인사하기<img src = "imgs/mypage/testCheck.png"></li>
+            </ul>
+        </section>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
