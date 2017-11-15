@@ -30,9 +30,11 @@ app.use(session({
     saveUninitialized: false 
 }));     
 app.set('json spaces', 40);
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
+//추가
+app.use(bodyParser.json({limit : '50mb'}));
+app.use(bodyParser.urlencoded({limit : '50mb', extended : true, parameterLimit : 50000}));
 app.set('view engine','ejs');
 app.set('views','./views');
 

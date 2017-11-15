@@ -930,6 +930,12 @@
                 //let plantitle = document.getElementById('planTitle').innerText;
                 post('/plans', {'id': id});
             }
+
+            let spd = document.getElementById('stopPwdBtn');
+            spd.onclick = () => {
+                alert("회원탈퇴가 완료되었습니다!");
+                history.go(-2);
+            }
         </script>
     </body>
 </html>
