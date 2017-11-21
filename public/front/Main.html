@@ -7,7 +7,74 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-        
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    type: 'post',
+                    url: '/home',
+                    dataType: 'json',
+                    success: function(data) {
+                        for (var i = 0; i < data.length; i++) {
+                            console.log(data[i]._id);
+                            let plans = document.getElementById('plans');
+                            
+                            let plan = document.createElement('div');
+                            plan.setAttribute('class','realPlans');
+                            plan.setAttribute('style','background-image: url('+data[i].backgroundImg+'); background-size: 15rem 16.2rem;');
+                            
+                            let planText = document.createElement('div');
+                            planText.setAttribute('class', 'planTitles');
+                            planText.innerHTML = data[i].title;
+
+                            let imgcover = document.createElement('div');
+                            imgcover.setAttribute('class','planImgCovers');
+
+                            let like = document.createElement('div');
+                            like.setAttribute('class', 'planBtns');
+                            like.setAttribute('id', 'planLike');
+
+                            let check = document.createElement('div');
+                            check.setAttribute('class', 'planBtns');
+                            check.setAttribute('id', 'planCheck');
+
+                            let see = document.createElement('div');
+                            see.setAttribute('class', 'planBtns');
+                            see.setAttribute('id', 'planSee');
+                            see.setAttribute('onclick', 'goplan("'+data[i]._id+'");');
+
+                            let likeimg = document.createElement('img');
+                            likeimg.setAttribute('src', 'imgs/main/blackHeart.png');
+                            likeimg.setAttribute('alt', 'planLike');
+                            likeimg.setAttribute('id', 'planLikeImg');
+
+                            let checkimg = document.createElement('img');
+                            checkimg.setAttribute('src', 'imgs/main/planCheck.png');
+                            checkimg.setAttribute('alt', 'planCheck');
+                            checkimg.setAttribute('id', 'planCheckImg');
+
+                            let seeimg = document.createElement('img');
+                            seeimg.setAttribute('src', 'imgs/main/moreOption.png');
+                            seeimg.setAttribute('alt', 'seemore');
+                            seeimg.setAttribute('id', 'planSeeImg');
+
+                            plans.appendChild(plan);
+                            plan.appendChild(planText);
+                            plan.appendChild(imgcover);
+                            imgcover.appendChild(like);
+                            like.appendChild(likeimg);
+                            imgcover.appendChild(check);
+                            check.appendChild(checkimg);
+                            imgcover.appendChild(see);
+                            see.appendChild(seeimg);
+                        }
+                    }
+                });
+            });
+        </script>
         <!-- tinymce -->
         <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
         <script>tinymce.init({ selector:'textarea' });</script>
@@ -806,28 +873,8 @@
                 <!-- 제일 중요한 메인 파트 -->
                 <div class = "planCovers" style = "margin-top:2rem";>
                     <div class = "planDates"></div>
-                    <div class = "plans">
+                    <div class = "plans" id = "plans">
                         <!-- 4개가 최대가 되도록 -->
-                        <% for(var i = 0; i < data.length; i++){ %>
-                            <div class = "realPlans" style = "background-image: url(<%= data[i].backgroundImg%>); background-size: 15rem 16.2rem; background-color: pink">
-                                <div class = "planTitles">
-                                    <%= data[i].title %>
-                                </div>
-                                
-                                <!-- 이미지 3개 버튼들 -->
-                                <div class = "planImgCovers">
-                                    <div class = "planBtns" id = "planLike">
-                                        <img src = "imgs/main/blackHeart.png" alt = "planLike" id = "planLikeImg">
-                                    </div>
-                                    <div class = "planBtns" id = "planCheck">
-                                        <img src = "imgs/main/planCheck.png" alt = "planCheck" id = "planCheckImg">
-                                    </div>
-                                    <div class = "planBtns" id = "planSee" onclick="goplan('<%= data[i]._id%>')">
-                                        <img src = "imgs/main/moreOption.png" alt = "seemore" id = "planSeeImg">
-                                    </div>
-                                </div>
-                            </div>
-                        <% } %>
                     </div>
                 </div>
                 <!-- 여기까지 -->

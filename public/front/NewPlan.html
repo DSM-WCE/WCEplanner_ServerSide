@@ -6,6 +6,10 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
         <script src="js/iro.js"></script>
         
         <style media = "screen" type="text/css">
@@ -433,28 +437,6 @@
         <script type = "text/javascript">
             //post request
             var image;
-            function post(path, params, method) {
-                console.log('a');
-                method = method || "post";
-
-                var form = document.createElement("form");
-                form.setAttribute("method", method);
-                form.setAttribute("action", path);
-                //set form
-
-                for(var key in params) {
-                    var hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", key);
-                    hiddenField.setAttribute("value", params[key]);
-             
-                    form.appendChild(hiddenField);
-                }
-             
-                document.body.appendChild(form);
-                form.submit();
-            }
-
             //test
             let test = document.getElementsByClassName('descriptionBtns')[0];
             let heart = document.getElementById('heartImg');
@@ -572,7 +554,13 @@
                     postBox.parentElement.removeChild(postBox);
                 }
                 var thisplan = plantitle;
-                post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImg': image});
+                $.ajax({
+                    url: '/newplan',
+                    type: 'POST',
+                    data: {title: plantitle ,description: tInput, backgroundImg: image},
+                    dataType: 'json'
+                });
+                //post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImg': image});
             }
         </script>
     </body>

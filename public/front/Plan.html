@@ -6,6 +6,96 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+        <script src="js/iro.js"></script>
+        <script>
+            $(document).ready(function() {
+            $.ajax({
+                url:'/plans',
+                type: 'get',
+                dataType:'json',
+                success: function(data) {
+                    console.log(data);
+                    console.log('a');
+                    let appendImg = document.querySelector('article');
+                    let createDiv = document.createElement('div');
+                    createDiv.setAttribute('id', 'blackCover');
+
+                    let img = new Image();
+                    img.src = data.backgroundImg.data;
+                    appendImg.innerHTML = '';
+                    appendImg.appendChild(img);
+                    appendImg.appendChild(createDiv);
+                    document.getElementById('titleInput').value = data.title;
+                    for (var i = 0; i < data.description.length;i++){
+
+                        let plantitle = data.title;//title
+                        let blackCover = document.getElementById('blackCover');; //이미지
+                        let tInput = data.description[i];
+                        
+                        let postBox = document.createElement('div');//생성 박스
+                        postBox.setAttribute('class', 'postBoxes');
+                        
+                        let postBoxText = document.createElement('div'); //박스 안 텍스트
+                        postBoxText.setAttribute('class', 'postBoxTexts');
+                        postBoxText.innerHTML = tInput;
+                        
+                        let editImg = document.createElement('img'); //수정 이미지
+                        editImg.setAttribute('src', '../imgs/plan/editImg.png');
+                        let delImg = document.createElement('img'); //삭제 이미지
+                        delImg.setAttribute('src', '../imgs/plan/garbage.png');
+                        let checkImg = document.createElement('img');
+                        checkImg.setAttribute('src', '../imgs/plan/postCheck.png');
+                        checkImg.style.display = "none";
+                        
+                        blackCover.appendChild(postBox); //박스 추가
+                        postBox.appendChild(postBoxText); // 박스 내 텍스트 추가
+                        //이미지들 추가
+                        postBox.appendChild(checkImg);
+                        postBox.appendChild(delImg);
+                        postBox.appendChild(editImg);
+                        
+                        //edit누르면 수정
+                        editImg.onclick = (e) => {
+                            var before = postBoxText.innerText;
+                            postBoxText.setAttribute('contentEditable', true);
+                            postBoxText.style.textDecoration = "underline";
+                            checkImg.style.display = "inline-block";
+                            
+                            checkImg.onclick = () => {
+                                postBoxText.setAttribute('contentEditable', false);
+                                postBoxText.style.textDecoration = defaultStatus;
+                                var after = postBoxText.innerText;
+                                console.log(after);
+                                console.log(thisplan);
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/editplan',
+                                    data: {title: thisplan, before: before,description: after},
+                                    dataType: 'json'
+                                });
+                                //post('/editplan', {'title': thisplan, 'before': before,'description': after});
+                            }
+                        }
+                        delImg.onclick = function() {
+                            $.ajax({
+                               type: 'post',
+                               url: '/deletedes',
+                               data: {title: thisplan, description: postBoxText.innerText},
+                               dataType: 'json'
+                            });
+                            //post('/deletedes', {'title': thisplan,'description': postBoxText.innerText});
+                            postBox.parentElement.removeChild(postBox);
+                        }
+                        var thisplan = plantitle;
+                    }
+                }
+            });
+        });
+        </script>
         
         <style media = "screen" type="text/css">
             body{
@@ -121,7 +211,6 @@
             article #basicColor{
                 width:100%;
                 height:100%;
-                background-color:#457ff5;
                 overflow-y:auto;
             }
             
@@ -376,8 +465,11 @@
         
         <section>
             <article>
-                <img src="<%= data.backgroundImg %>">
-                <div id = "blackCover">
+                <div id = "basicColor">
+                    <div id = "basicCover">
+                        <img src = "../imgs/plan/planWarning.png" alt = "warning" id = "warningImg">
+                        <span>배경사진이나 색을 등록해주세요!</span>
+                    </div>
                 </div>
             </article>
             <aside>
@@ -398,11 +490,11 @@
                 </div>
                 
                 <label for = "titleInput">제목</label>
-                <input type = "text" placeholder="제목을 입력해주세요." id = "titleInput" value="<%= data.title %>">
+                <input type = "text" placeholder="제목을 입력해주세요." id = "titleInput">
                 
                 <label for = "descriptionInput">설명</label>
                 <div id = "desInputCover">
-                    <textarea id = "descriptionInput" placeholder="설명을 입력해주세요."><%= data.description %></textarea>
+                    <textarea id = "descriptionInput" placeholder="설명을 입력해주세요."></textarea>
                     <div id = "postBtn" onclick = "makePost();">
                         <div id = "postBtnText">
                             등록
@@ -419,39 +511,17 @@
                     <img src = "../imgs/plan/backPic.png" alt = "backPic" id = "backPicImg">
                     <input type = "file" style = "display:none"; id = "backPic" accept="image/*">
                 </label>
+                <label style = "display:inline-block;" for = "backColor">배경 색상 선택:
+                    <div id="backColor"></div>
+                </label>
                 
                 <!--<label for = "backColor"></label>-->
             </aside>
         </section>
         
         <script type = "text/javascript">
-            window.onload = function() {
-                makePost();
-            }
             //post request
             var image;
-            function post(path, params, method) {
-                console.log('a');
-                method = method || "post";
-
-                var form = document.createElement("form");
-                form.setAttribute("method", method);
-                form.setAttribute("action", path);
-                //set form
-
-                for(var key in params) {
-                    var hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", key);
-                    hiddenField.setAttribute("value", params[key]);
-             
-                    form.appendChild(hiddenField);
-                }
-             
-                document.body.appendChild(form);
-                form.submit();
-            }
-
             //test
             let test = document.getElementsByClassName('descriptionBtns')[0];
             let heart = document.getElementById('heartImg');
@@ -508,6 +578,18 @@
                 return false;
             };
             
+            /* 색상 바꾸기 */
+            let colorPicker = new iro.ColorPicker("#backColor", {
+                width: 320,
+                height: 320,
+                color: "#457ff5",
+                css: {
+                    "#basicColor": {
+                      "background-color": "$color"
+                    }
+                  }
+            });
+            
             //추가
             function makePost(){
                 let plantitle = document.getElementById('titleInput').value;//title
@@ -557,6 +639,12 @@
                     postBox.parentElement.removeChild(postBox);
                 }
                 var thisplan = plantitle;
+                $.ajax({
+                    url: '/newplan',
+                    type: 'POST',
+                    data: {title: plantitle ,description: tInput, backgroundImg: image},
+                    dataType: 'json'
+                });
                 //post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImg': image});
             }
         </script>

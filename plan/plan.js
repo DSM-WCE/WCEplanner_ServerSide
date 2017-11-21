@@ -5,37 +5,45 @@ module.exports.addPlan = function (req) {
     console.log(req.body.title);
     console.log(req.body.description);
     console.log(req.session.passport.user);
-    let newPlan = new Plans ({
-        name: req.session.passport.user,
-        title: req.body.title,
-        description: req.body.description,
-        date: Date.now(),
-        backgroundImg: req.body.backgroundImg
+    Plans.findOne({title: req.body.title}, function(err, plan) {
+        if(plan) {
+            Plans.findOneAndUpdate({title: req.body.title}, {$push: {description: req.body.description}}, {upsert:true}, function(err, data) {
+                console.log(data);
+            });
+        } else {
+            let newPlan = new Plans ({
+                name: req.session.passport.user,
+                title: req.body.title,
+                description: req.body.description,
+                date: Date.now(),
+                backgroundImg: req.body.backgroundImg
+            });
+            newPlan.save();
+        }
     });
-    console.log('add(after)');
-    newPlan.save();
 }
 //save function
 
-module.exports.loadPlan = function (res, path, req) {
+module.exports.loadPlan = function (req, res) {
     Plans.find({name: req.session.passport.user}).exec(function(err, data) {
-        return res.render(path, {data: data});
+        console.log(data);
+        return res.json(data);
     });
 }
 //loadfunction for main
 
-module.exports.search = function (req, path ,res) {
-    Plans.find({name: req.session.passport.user}).findOne({_id: req.body.id}).exec(function(err,data) {
+module.exports.search = function (req ,res, id) {
+    console.log(id);
+    console.log(req.session.passport.user);
+    Plans.find({name: req.session.passport.user}).findOne({_id: id}).exec(function(err,data) {
         console.log(data);
-        return res.render(path, {data: data});
+        return res.json(data);
     });
 }
 //search plan function for plan page
 
 module.exports.deletedes = function(req) {
-    Plans.find({name: req.session.passport.user}).find({title: req.body.title}).findOneAndRemove({'description': req.body.description}, function(err, res) {
-        console.log(res);
-    });
+    Plans.findOneAndUpdate({title: req.body.title}, {$pull: {description: req.body.description}});
 }
 //delete plan
 
