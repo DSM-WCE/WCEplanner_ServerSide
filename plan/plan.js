@@ -43,7 +43,9 @@ module.exports.search = function (req ,res, id) {
 //search plan function for plan page
 
 module.exports.deletedes = function(req) {
-    Plans.findOneAndUpdate({title: req.body.title}, {$pull: {description: req.body.description}});
+    Plans.findOneAndUpdate({title: req.body.title}, {$pull: {description: req.body.description}}, function(err, data) {
+        console.log(data);
+    });
 }
 //delete plan
 
