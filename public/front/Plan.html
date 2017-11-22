@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>New Plan</title>
+        <title>Plan</title>
         <meta charset = "utf-8">
         <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -25,7 +25,7 @@
                     createDiv.setAttribute('id', 'blackCover');
 
                     let img = new Image();
-                    img.src = data.backgroundImg.data;
+                    //img.src = data.backgroundImg.data;
                     appendImg.innerHTML = '';
                     appendImg.appendChild(img);
                     appendImg.appendChild(createDiv);
@@ -526,6 +526,7 @@
             let test = document.getElementsByClassName('descriptionBtns')[0];
             let heart = document.getElementById('heartImg');
             let edit = document.getElementById('editImg');
+            let deletePlan = document.getElementById('delPlanImg');
             
             test.onmouseover = (e) => {
                 heart.setAttribute('src', "../imgs/plan/heart2.png");
@@ -551,6 +552,16 @@
                         des.style.textDecoration = defaultStatus;
                     }
                 }
+            }
+
+            deletePlan.onclick = () => {
+                let title = document.getElementById('titleInput').value;
+                $.ajax({
+                    type: 'post',
+                    url: '/deleteplan',
+                    data: {title: title},
+                    dataType: 'json'
+                });
             }
             
             /* 사진 바꾸기 */
@@ -631,11 +642,21 @@
                         var after = postBoxText.innerText;
                         console.log(after);
                         console.log(thisplan);
-                        post('/editplan', {'title': thisplan, 'before': before,'description': after});
+                        $.ajax({
+                            type: 'post',
+                            url: '/editplan',
+                            data: {title: thisplan, before: before,description: after},
+                            dataType: 'json'
+                        });
                     }
                 }
                 delImg.onclick = function() {
-                    post('/deletedes', {'title': thisplan,'description': postBoxText.innerText});
+                    $.ajax({
+                        type: 'post',
+                        url: '/deletedes',
+                        data: {title: thisplan, description: postBoxText.innerText},
+                        dataType: 'json'
+                    });
                     postBox.parentElement.removeChild(postBox);
                 }
                 var thisplan = plantitle;

@@ -18,6 +18,7 @@
                     url: '/home',
                     dataType: 'json',
                     success: function(data) {
+                        console.log(data.length);
                         for (var i = 0; i < data.length; i++) {
                             console.log(data[i]._id);
                             let plans = document.getElementById('plans');

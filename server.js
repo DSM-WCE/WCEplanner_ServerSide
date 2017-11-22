@@ -58,6 +58,8 @@ const routerPlans = require('./router/Plans')(router);
 app.use('/', routerPlans);
 const routerMypage = require('./router/Mypage')(router);
 app.use('/', routerMypage);
+const routerDeletePlan = require('./router/DeletePlan')(router);
+app.use('/', routerDeletePlan);
 
 /* Open server */
 http.createServer(app).listen(app.get('port'), function(){

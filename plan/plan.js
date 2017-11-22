@@ -7,7 +7,7 @@ module.exports.addPlan = function (req) {
     console.log(req.session.passport.user);
     Plans.findOne({title: req.body.title}, function(err, plan) {
         if(plan) {
-            Plans.findOneAndUpdate({title: req.body.title}, {$push: {description: req.body.description}}, {upsert:true}, function(err, data) {
+            Plans.findOneAndUpdate({title: req.body.title}, {$push: {description: req.body.description}}, {new: true}, function(err, data) {
                 console.log(data);
             });
         } else {
@@ -43,15 +43,24 @@ module.exports.search = function (req ,res, id) {
 //search plan function for plan page
 
 module.exports.deletedes = function(req) {
-    Plans.findOneAndUpdate({title: req.body.title}, {$pull: {description: req.body.description}}, function(err, data) {
+    Plans.findOneAndUpdate({title: req.body.title}, {$pull: {description: req.body.description}}, {new: true},function(err, data) {
+        console.log('delete this des');
+        console.log(data);
+    });
+}
+//deletedes plan
+
+module.exports.editplan = function(req) {
+    console.log(req.body.title);
+    Plans.find({ name: req.session.passport.user}).find({title: req.body.title}).findOneAndUpdate({description: req.body.before}, { 'description.$': req.body.description }, {new: true},function(err, data) {
+        console.log(data);
+    });
+}
+//edit plan
+module.exports.deleteplan = function(req) {
+    Plans.findOneAndRemove({title: req.body.title}, function(err, data) {
+        console.log('dalete this Plan: ');
         console.log(data);
     });
 }
 //delete plan
-
-module.exports.editplan = function(req) {
-    console.log(req.body.title);
-    Plans.find({ name: req.session.passport.user}).find({title: req.body.title}).findOneAndUpdate({description: req.body.before}, { description: req.body.description }, {new: true},function(err, data) {
-        console.log(data);
-    })
-}

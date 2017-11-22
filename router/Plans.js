@@ -9,7 +9,6 @@ module.exports = function(router) {
         id = req.body.id
     });
     router.get('/plans', function(req, res) {
-        console.log('a');
         plan.search(req, res, id);
     });
     return router;
