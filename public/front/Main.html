@@ -18,14 +18,18 @@
                     url: '/home',
                     dataType: 'json',
                     success: function(data) {
-                        console.log(data.length);
                         for (var i = 0; i < data.length; i++) {
-                            console.log(data[i]._id);
-                            let plans = document.getElementById('plans');
+                            let cover = document.getElementById('planCovers');
+                            if (i % 4 == 0) {
+                                let plans = document.createElement('div');
+                                plans.setAttribute('class', 'plans');
+                                cover.appendChild(plans);
+                            }
+                            let plans = document.getElementsByClassName('plans')[document.getElementsByClassName('plans').length-1];
                             
                             let plan = document.createElement('div');
                             plan.setAttribute('class','realPlans');
-                            plan.setAttribute('style','background-image: url('+data[i].backgroundImg+'); background-size: 15rem 16.2rem;');
+                            plan.setAttribute('style','background-image: url("./'+data[i].backgroundImg+'"); background-size: 15rem 16.2rem;');
                             
                             let planText = document.createElement('div');
                             planText.setAttribute('class', 'planTitles');
@@ -62,6 +66,7 @@
                             seeimg.setAttribute('alt', 'seemore');
                             seeimg.setAttribute('id', 'planSeeImg');
 
+                            // cover.appendChild(plans);
                             plans.appendChild(plan);
                             plan.appendChild(planText);
                             plan.appendChild(imgcover);
@@ -429,6 +434,7 @@
                 margin-left:2rem;
                 height:15.5rem;
                 text-align: center;
+                margin-top: 3rem;
             }
             
             section .plans .realPlans{
@@ -872,11 +878,8 @@
                 </div>
                 
                 <!-- 제일 중요한 메인 파트 -->
-                <div class = "planCovers" style = "margin-top:2rem";>
+                <div class = "planCovers" style = "margin-top:2rem"; id = "planCovers">
                     <div class = "planDates"></div>
-                    <div class = "plans" id = "plans">
-                        <!-- 4개가 최대가 되도록 -->
-                    </div>
                 </div>
                 <!-- 여기까지 -->
             </div>
@@ -887,15 +890,13 @@
         </footer>
         
         <script type = "text/javascript">
-        function post(path, params, method) {
+            function post(path, params, method) {
                 console.log('a');
                 method = method || "post";
-
                 var form = document.createElement("form");
                 form.setAttribute("method", method);
                 form.setAttribute("action", path);
                 //set form
-
                 for(var key in params) {
                     var hiddenField = document.createElement("input");
                     hiddenField.setAttribute("type", "hidden");

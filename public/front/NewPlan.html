@@ -404,31 +404,33 @@
                     </div>
                 </div>
                 
-                <label for = "titleInput">제목</label>
-                <input type = "text" placeholder="제목을 입력해주세요." id = "titleInput">
-                
-                <label for = "descriptionInput">설명</label>
-                <div id = "desInputCover">
-                    <textarea id = "descriptionInput" placeholder="설명을 입력해주세요."></textarea>
-                    <div id = "postBtn" onclick = "makePost();">
-                        <div id = "postBtnText">
-                            등록
+                <form action="/newplan" method="post" enctype="multipart/form-data" id = "addplanform">
+                    <label for = "titleInput">제목</label>
+                    <input type = "text" placeholder="제목을 입력해주세요." id = "titleInput" name = "title">
+                    
+                    <label for = "descriptionInput">설명</label>
+                    <div id = "desInputCover">
+                        <textarea id = "descriptionInput" placeholder="설명을 입력해주세요." name = "description" form = "addplanform"></textarea>
+                        <div id = "postBtn" onclick = "makePost(); document.getElementById('addplanform').submit();">
+                            <div id = "postBtnText">
+                                등록
+                            </div>
+                        </div>
+                        <div id = "checkBtn">
+                            <div id = "checkBtnText">
+                                <a href="/home">MY plan</a>
+                            </div>  
                         </div>
                     </div>
-                    <div id = "checkBtn">
-                        <div id = "checkBtnText">
-                            <a href="/home">MY plan</a>
-                        </div>  
-                    </div>
-                </div>
-                
-                <label style = "display:inline-block;" for = "backPic">배경 사진 등록:
-                    <img src = "../imgs/plan/backPic.png" alt = "backPic" id = "backPicImg">
-                    <input type = "file" style = "display:none"; id = "backPic" accept="image/*">
-                </label>
-                <label style = "display:inline-block;" for = "backColor">배경 색상 선택:
-                    <div id="backColor"></div>
-                </label>
+                    
+                    <label style = "display:inline-block;" for = "backPic">배경 사진 등록:
+                        <img src = "../imgs/plan/backPic.png" alt = "backPic" id = "backPicImg">
+                        <input type = "file" style = "display:none"; id = "backPic" accept="image/*" name = "background">
+                    </label>
+                    <label style = "display:inline-block;" for = "backColor">배경 색상 선택:
+                        <div id="backColor"></div>
+                    </label>
+                </form>
                 
                 <!--<label for = "backColor"></label>-->
             </aside>
@@ -471,12 +473,18 @@
 
             deletePlan.onclick = () => {
                 let title = document.getElementById('titleInput').value;
-                $.ajax({
-                    type: 'post',
-                    url: '/deleteplan',
-                    data: {title: title},
-                    dataType: 'json'
-                });
+                var delPlanConfirm = confirm(title+' 계획을 삭제하시겠습니까?');
+                if(delPlanConfirm){
+                    $.ajax({
+                        type: 'post',
+                        url: '/deleteplan',
+                        data: {title: title},
+                        dataType: 'json',
+                        success: function(data) {
+                            window.location = data.redirect;
+                        }
+                    });
+                }
             }
             
             /* 사진 바꾸기 */
@@ -487,6 +495,8 @@
             uploadImg.onchange = function (e) {
                 e.preventDefault();
                 let appendImg = document.querySelector('article');//willChange
+
+                image = uploadImg.files[0];
                 
                 let file = uploadImg.files[0],
                     reader = new FileReader();
@@ -494,7 +504,6 @@
                 reader.onload = function (event){
                     let img = new Image();
                     img.src = event.target.result;
-                    image = event.target.result;
                     
                     appendImg.innerHTML = '';
                     appendImg.appendChild(img);
@@ -552,35 +561,47 @@
                     checkImg.style.display = "inline-block";
                     
                     checkImg.onclick = () => {
-                        postBoxText.setAttribute('contentEditable', false);
-                        postBoxText.style.textDecoration = defaultStatus;
-                        var after = postBoxText.innerText;
-                        console.log(after);
-                        console.log(thisplan);
-                        $.ajax({
-                            type: 'post',
-                            url: '/editplan',
-                            data: {title: thisplan, before: before,description: after},
-                            dataType: 'json'
-                        });
+                        var editConfirm = confirm(before +'(을)를 '+postBoxText.innerText+'(으)로 수정하시겠습니까?');
+                        if(editConfirm) {
+                            postBoxText.setAttribute('contentEditable', false);
+                            postBoxText.style.textDecoration = defaultStatus;
+                            var after = postBoxText.innerText;
+                            console.log(after);
+                            console.log(thisplan);
+                            $.ajax({
+                                type: 'post',
+                                url: '/editplan',
+                                data: {title: thisplan, before: before,description: after},
+                                dataType: 'json'
+                            });
+                            checkImg.style.display = "none";
+                        } else {
+                            postBoxText.innerText = before;
+                            postBoxText.setAttribute('contentEditable', false);
+                            postBoxText.style.textDecoration = defaultStatus;
+                            checkImg.style.display = "none";
+                        }
                     }
                 }
                 delImg.onclick = function() {
-                    $.ajax({
-                        type: 'post',
-                        url: '/deletedes',
-                        data: {title: thisplan, description: postBoxText.innerText},
-                        dataType: 'json'
-                    });
-                    postBox.parentElement.removeChild(postBox);
+                    var delConfrim = confirm(postBoxText.innerText+'(을)를 삭제하시겠습니까?');
+                    if(delConfrim) {
+                        $.ajax({
+                            type: 'post',
+                            url: '/deletedes',
+                            data: {title: thisplan, description: postBoxText.innerText},
+                            dataType: 'json'
+                        });
+                        postBox.parentElement.removeChild(postBox);
+                    }
                 }
                 var thisplan = plantitle;
-                $.ajax({
-                    url: '/newplan',
-                    type: 'POST',
-                    data: {title: plantitle ,description: tInput, backgroundImg: image},
-                    dataType: 'json'
-                });
+                // $.ajax({
+                //     url: '/newplan',
+                //     type: 'POST',
+                //     data: {title: plantitle ,description: tInput, backgroundImg: image},
+                //     dataType: 'json'
+                // });
                 //post('/newplan', {'title': plantitle ,'description': tInput, 'backgroundImg': image});
             }
         </script>

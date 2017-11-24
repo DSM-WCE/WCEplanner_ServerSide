@@ -13,7 +13,7 @@ const PlansSchema = new mongoose.Schema({
     title: String,
     description: [{type: String, required: true}],
     date: {type: Date, default: Date.now},
-    backgroundImg: Buffer
+    backgroundImg: String
 });
 
 module.exports = mongoose.model('Plans', PlansSchema);

@@ -16,7 +16,7 @@ module.exports.addPlan = function (req) {
                 title: req.body.title,
                 description: req.body.description,
                 date: Date.now(),
-                backgroundImg: req.body.backgroundImg
+                backgroundImg: req.file.filename,
             });
             newPlan.save();
         }
@@ -43,7 +43,7 @@ module.exports.search = function (req ,res, id) {
 //search plan function for plan page
 
 module.exports.deletedes = function(req) {
-    Plans.findOneAndUpdate({title: req.body.title}, {$pull: {description: req.body.description}}, {new: true},function(err, data) {
+    Plans.find({title: req.body.title}).findOneAndUpdate({description: req.body.description}, {$pull: {'description': req.body.description}}, {new: true},function(err, data) {
         console.log('delete this des');
         console.log(data);
     });
