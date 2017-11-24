@@ -66,29 +66,39 @@
                             checkImg.style.display = "inline-block";
                             
                             checkImg.onclick = () => {
-                                postBoxText.setAttribute('contentEditable', false);
-                                postBoxText.style.textDecoration = defaultStatus;
-                                var after = postBoxText.innerText;
-                                console.log(after);
-                                console.log(thisplan);
-                                $.ajax({
-                                    type: 'post',
-                                    url: '/editplan',
-                                    data: {title: thisplan, before: before,description: after},
-                                    dataType: 'json'
-                                });
-                                //post('/editplan', {'title': thisplan, 'before': before,'description': after});
+                                var editConfirm = confirm(before +'(을)를 '+postBoxText.innerText+'(으)로 수정하시겠습니까?');
+                                if(editConfirm) {
+                                    postBoxText.setAttribute('contentEditable', false);
+                                    postBoxText.style.textDecoration = defaultStatus;
+                                    var after = postBoxText.innerText;
+                                    console.log(after);
+                                    console.log(thisplan);
+                                    $.ajax({
+                                        type: 'post',
+                                        url: '/editplan',
+                                        data: {title: thisplan, before: before,description: after},
+                                        dataType: 'json'
+                                    });
+                                    checkImg.style.display = "none";
+                                } else {
+                                    postBoxText.innerText = before;
+                                    postBoxText.setAttribute('contentEditable', false);
+                                    postBoxText.style.textDecoration = defaultStatus;
+                                    checkImg.style.display = "none";
+                                }
                             }
                         }
                         delImg.onclick = function() {
-                            $.ajax({
-                               type: 'post',
-                               url: '/deletedes',
-                               data: {title: thisplan, description: postBoxText.innerText},
-                               dataType: 'json'
-                            });
-                            //post('/deletedes', {'title': thisplan,'description': postBoxText.innerText});
-                            postBox.parentElement.removeChild(postBox);
+                            var delConfrim = confirm(postBoxText.innerText+'(을)를 삭제하시겠습니까?');
+                            if(delConfrim) {
+                                $.ajax({
+                                    type: 'post',
+                                    url: '/deletedes',
+                                    data: {title: thisplan, description: postBoxText.innerText},
+                                    dataType: 'json'
+                                });
+                                postBox.parentElement.removeChild(postBox);
+                            }
                         }
                         var thisplan = plantitle;
                     }

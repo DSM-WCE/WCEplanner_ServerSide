@@ -24,6 +24,7 @@ const facebookLogin = require('./login/passport-facebook')(passport);
 
 app.use('/', express.static(__dirname + '/public/front'));
 app.use('/', express.static('uploads'));
+app.use('/', express.static('backgrounds'));
 app.set('port', process.env.PORT || 8080);
 app.use(session({
     secret: 'flouieserver', 
