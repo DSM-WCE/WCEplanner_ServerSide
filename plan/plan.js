@@ -1,5 +1,6 @@
 //function for plan
 const Plans = require('../DB/Plans');
+const fs = require('fs');
 
 module.exports.addPlan = function (req) {
     console.log(req.body.title);
@@ -59,6 +60,9 @@ module.exports.editplan = function(req) {
 //edit plan
 module.exports.deleteplan = function(req) {
     Plans.findOneAndRemove({title: req.body.title}, function(err, data) {
+        fs.unlink('backgrounds/'+data.backgroundImg, function(err) {
+            console.log('delete success');
+        });
         console.log('dalete this Plan: ');
         console.log(data);
     });
